@@ -1,0 +1,78 @@
+.error : return wrapped error
+    ANY  →  if $expr$ != nil {\
+                return fmt.Errorf("couldn't $end$: %w", $expr$)\
+            }
+
+## Return ##
+.ret : return value
+    ANY →  return $expr$
+
+.retn : return value, nil
+    ANY →  return $expr$, nil
+
+## String ##
+.split : split string
+    STRING  →  strings.Split($expr$, "$VAR0$")
+
+## JSON ##
+.marshal : json marshal
+    ANY →  $VAR0$, $VAR1$ := json.Marshal($expr$)
+
+.unmarshal : json unmarshal
+    BYTESLICE  →  $VAR1$ := json.Unmarshal($expr$, $VAR0$)
+
+## Testing ##
+.assertNoErr : assert no error
+    ERROR   →  assert.NoError(t, $expr$)
+
+.assertErr : assert error
+    ERROR   →  assert.Error(t, $expr$)
+
+.assertEmpty : assert empty
+    ANY     →  assert.Empty(t, $VAR0$)
+
+.assertNotEmpty : assert not empty
+    ANY     →  assert.NotEmpty(t, $VAR0$)
+
+.assertEqual : assert equal
+    ANY     →  assert.Equal(t, $VAR0$)
+
+.assertNil : assert nil
+    NIL     →  assert.Nil(t, $expr$)
+
+.assertNotNil : assert not nil
+    NIL     →  assert.NotNil(t, $expr$)
+
+.assertTrue : assert true
+    BOOLEAN →  assert.True(t, $expr$)
+
+.assertFalse : assert false
+    BOOLEAN →  assert.False(t, $expr$)
+
+.assertLen : assert length
+    NIL     →  assert.Len(t, $expr$, $VAR0$)
+
+.requireNoErr : require no error
+    ERROR   →  require.NoError(t, $expr$)
+
+.requireErr : require error
+    ERROR   →  require.Error(t, $expr$)
+
+.requireEqual : require equal
+    ANY     →  require.Equal(t, $VAR0$)
+
+.requireNil : require nil
+    NIL     →  require.Nil(t, $expr$)
+
+.requireNotNil : require not nil
+    NIL     →  require.NotNil(t, $expr$)
+
+.requireTrue : require true
+    BOOLEAN →  require.True(t, $expr$)
+
+.requireFalse : require false
+    BOOLEAN →  require.False(t, $expr$)
+
+.requireLen : require length
+    NIL     →  require.Len(t, $expr$, $VAR0$)
+
